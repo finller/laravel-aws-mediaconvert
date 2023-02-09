@@ -3,6 +3,7 @@
 namespace Finller\AwsMediaConvert;
 
 use Aws\MediaConvert\MediaConvertClient;
+use Illuminate\Support\Str;
 
 class AwsMediaConvert
 {
@@ -26,7 +27,7 @@ class AwsMediaConvert
             'Queue' => config('aws-mediaconvert.queue_arn'),
             'UserMetadata' => $metaData,
             'Tags' => $tags,
-            'StatusUpdateInterval' => 'SECONDS_'.config('aws-mediaconvert.webhook_interval'),
+            'StatusUpdateInterval' => 'SECONDS_' . config('aws-mediaconvert.webhook_interval'),
             'Priority' => $priority,
         ]);
     }
@@ -48,5 +49,10 @@ class AwsMediaConvert
     public function listJobs(array $options): \Aws\Result
     {
         return $this->client->listJobs($options);
+    }
+
+    public function getUri(string $path): string
+    {
+        return "s3://" . config('filesystems.disks.s3.bucket') . Str::start($path, "/");
     }
 }
