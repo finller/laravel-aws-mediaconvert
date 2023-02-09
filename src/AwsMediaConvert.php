@@ -4,14 +4,13 @@ namespace Finller\AwsMediaConvert;
 
 use Aws\MediaConvert\MediaConvertClient;
 
-
 class AwsMediaConvert
 {
     public function __construct(
         public MediaConvertClient $client
 
     ) {
-        // 
+        //
     }
 
     public function getClient(): MediaConvertClient
@@ -27,11 +26,10 @@ class AwsMediaConvert
             'Queue' => config('aws-mediaconvert.queue_arn'),
             'UserMetadata' => $metaData,
             'Tags' => $tags,
-            'StatusUpdateInterval' => "SECONDS_" . config('aws-mediaconvert.webhook_interval'),
+            'StatusUpdateInterval' => 'SECONDS_'.config('aws-mediaconvert.webhook_interval'),
             'Priority' => $priority,
         ]);
     }
-
 
     public function getJob(string $id): \Aws\Result
     {

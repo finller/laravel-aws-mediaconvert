@@ -4,10 +4,6 @@ namespace Finller\AwsMediaConvert\Http\Controllers;
 
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Finller\AwsMediaConvert\Events\ConversionHasCompleted;
 use Finller\AwsMediaConvert\Events\ConversionHasError;
 use Finller\AwsMediaConvert\Events\ConversionHasInputInformation;
@@ -15,6 +11,10 @@ use Finller\AwsMediaConvert\Events\ConversionHasNewWarning;
 use Finller\AwsMediaConvert\Events\ConversionHasStatusUpdate;
 use Finller\AwsMediaConvert\Events\ConversionIsProgressing;
 use Finller\AwsMediaConvert\Events\ConversionQueueHop;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AwsMediaConvertWebhookController extends Controller
 {
@@ -28,7 +28,7 @@ class AwsMediaConvertWebhookController extends Controller
 
             $validator = new MessageValidator();
 
-            if (!$validator->isValid($message)) {
+            if (! $validator->isValid($message)) {
                 abort(403);
             }
 
@@ -41,7 +41,7 @@ class AwsMediaConvertWebhookController extends Controller
         $message = Message::fromRawPostData();
         $this->ensureSubscriptionIsConfirmed($message);
 
-        if (!isset($message['Message'])) {
+        if (! isset($message['Message'])) {
             return response()->json(['message' => 'ok']);
         }
 
@@ -49,7 +49,7 @@ class AwsMediaConvertWebhookController extends Controller
 
         if (
             $notification['source'] !== 'aws.mediaconvert' ||
-            !isset($notification['detail'])
+            ! isset($notification['detail'])
         ) {
             return response()->json(['message' => 'ok']);
         }

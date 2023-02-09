@@ -17,6 +17,6 @@ class ConversionHasNewWarning
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }

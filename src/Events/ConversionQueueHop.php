@@ -17,6 +17,6 @@ class ConversionQueueHop
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }

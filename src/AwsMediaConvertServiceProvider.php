@@ -2,12 +2,12 @@
 
 namespace Finller\AwsMediaConvert;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Aws\Credentials\Credentials;
 use Aws\MediaConvert\MediaConvertClient;
-use Illuminate\Support\Facades\Route;
 use Finller\AwsMediaConvert\Http\Controllers\AwsMediaConvertWebhookController;
+use Illuminate\Support\Facades\Route;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class AwsMediaConvertServiceProvider extends PackageServiceProvider
 {

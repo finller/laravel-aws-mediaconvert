@@ -17,6 +17,6 @@ class ConversionHasCompleted
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }

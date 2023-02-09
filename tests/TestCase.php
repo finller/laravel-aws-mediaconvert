@@ -2,9 +2,9 @@
 
 namespace Finller\AwsMediaConvert\Tests;
 
+use Finller\AwsMediaConvert\AwsMediaConvertServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Finller\AwsMediaConvert\AwsMediaConvertServiceProvider;
 
 class TestCase extends Orchestra
 {

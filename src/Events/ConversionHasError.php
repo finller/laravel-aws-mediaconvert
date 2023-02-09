@@ -17,6 +17,6 @@ class ConversionHasError
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }

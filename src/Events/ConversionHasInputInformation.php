@@ -17,6 +17,6 @@ class ConversionHasInputInformation
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }

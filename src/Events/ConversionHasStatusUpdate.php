@@ -17,6 +17,6 @@ class ConversionHasStatusUpdate
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }

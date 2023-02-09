@@ -17,6 +17,6 @@ class ConversionIsProgressing
      */
     public function __construct(public $message)
     {
-        // 
+        //
     }
 }
