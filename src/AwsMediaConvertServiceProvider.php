@@ -26,11 +26,16 @@ class AwsMediaConvertServiceProvider extends PackageServiceProvider
     public function registeringPackage()
     {
         $this->app->singleton(AwsMediaConvert::class, function () {
-            return new MediaConvertClient([
-                'version' => config('aws-mediaconvert.version'),
-                'region' => config('aws-mediaconvert.region'),
-                'credentials' => new Credentials(config('aws-mediaconvert.credentials.key'), config('aws-mediaconvert.credentials.secret')),
-            ]);
+            return new AwsMediaConvert(
+                client: new MediaConvertClient([
+                    'version' => config('aws-mediaconvert.version'),
+                    'region' => config('aws-mediaconvert.region'),
+                    'credentials' => new Credentials(
+                        key: config('aws-mediaconvert.credentials.key'),
+                        secret: config('aws-mediaconvert.credentials.secret')
+                    ),
+                ])
+            );
         });
     }
 
