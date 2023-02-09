@@ -1,24 +1,26 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "finller/laravel-aws-mediaconvert",
+    "description": "Bring AWS MediaConvert to Laravel",
     "keywords": [
-        ":vendor_name",
+        "finller",
         "laravel",
-        ":package_slug"
+        "laravel-aws-mediaconvert"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/finller/laravel-aws-mediaconvert",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Quentin Gabriele",
+            "email": "quentin.gabriele@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^9.0"
+        "aws/aws-php-sns-message-validator": "^1.8",
+        "aws/aws-sdk-php": "^3.258",
+        "illuminate/contracts": "^9.0|^10.0",
+        "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -35,13 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Finller\\AwsMediaConvert\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Finller\\AwsMediaConvert\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +62,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Finller\\AwsMediaConvert\\AwsMediaConvertServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "AwsMediaConvert": "Finller\\AwsMediaConvert\\Facades\\AwsMediaConvert"
             }
         }
     },
