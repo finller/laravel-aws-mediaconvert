@@ -80,6 +80,24 @@ return [
 Finller\AwsMediaConvert\Facades\AwsMediaConvert::createJob(settings: []);
 ```
 
+### Tracks MediaConvert jobs with webhooks
+
+#### 1. Create an AWS CloudWatch rule
+
+#### 2. Connect your rule to an AWS SNS notification
+
+
+#### 2. Register the webhook route
+In web, api or any route file of yours, register the prebuilt route with the following macro.
+Use the url you have chosen in AWS SNS
+
+```php
+Route::awsMediaConvertWebhook('aws/webhooks/media-convert');
+```
+
+That's all, this package will dispatch Laravel events for you to listen.
+But if you need more specific behavior, you can create your own controller by extending `AwsMediaConvertWebhookController` for example.
+
 ## Testing
 
 ```bash
