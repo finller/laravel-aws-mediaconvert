@@ -30,6 +30,7 @@ class AwsMediaConvertServiceProvider extends PackageServiceProvider
                 client: new MediaConvertClient([
                     'version' => config('aws-mediaconvert.version'),
                     'region' => config('aws-mediaconvert.region'),
+                    'endpoint' => config('aws-mediaconvert.endpoint'),
                     'credentials' => new Credentials(
                         key: config('aws-mediaconvert.credentials.key'),
                         secret: config('aws-mediaconvert.credentials.secret')
