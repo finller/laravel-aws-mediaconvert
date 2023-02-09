@@ -7,7 +7,6 @@ namespace Finller\AwsMediaConvert\Support;
  */
 class DefaultMediaConvertSettings
 {
-
     public function __construct(public array $settings)
     {
     }
@@ -136,7 +135,8 @@ class DefaultMediaConvertSettings
 
     public function with(array $outputGroup): static
     {
-        array_push($this->settings["OutputGroups"], $outputGroup);
+        array_push($this->settings['OutputGroups'], $outputGroup);
+
         return $this;
     }
 

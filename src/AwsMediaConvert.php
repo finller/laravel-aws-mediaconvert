@@ -27,7 +27,7 @@ class AwsMediaConvert
             'Queue' => config('aws-mediaconvert.queue_arn'),
             'UserMetadata' => $metaData,
             'Tags' => $tags,
-            'StatusUpdateInterval' => 'SECONDS_' . config('aws-mediaconvert.webhook_interval'),
+            'StatusUpdateInterval' => 'SECONDS_'.config('aws-mediaconvert.webhook_interval'),
             'Priority' => $priority,
         ]);
     }
@@ -53,6 +53,6 @@ class AwsMediaConvert
 
     public function getUri(string $path): string
     {
-        return "s3://" . config('filesystems.disks.s3.bucket') . Str::start($path, "/");
+        return 's3://'.config('filesystems.disks.s3.bucket').Str::start($path, '/');
     }
 }
