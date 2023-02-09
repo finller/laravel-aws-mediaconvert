@@ -26,7 +26,7 @@ class AwsMediaConvert
             'Queue' => config('aws-mediaconvert.queue_arn'),
             'UserMetadata' => $metaData,
             'Tags' => $tags,
-            'StatusUpdateInterval' => 'SECONDS_' . config('aws-mediaconvert.webhook_interval'),
+            'StatusUpdateInterval' => 'SECONDS_'.config('aws-mediaconvert.webhook_interval'),
             'Priority' => $priority,
         ]);
     }
