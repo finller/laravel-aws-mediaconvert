@@ -2,10 +2,12 @@
 
 namespace Finller\AwsMediaConvert\Support;
 
+use Illuminate\Contracts\Support\Arrayable;
+
 /**
  * Default settings for an web optimized .mp4 Video
  */
-class DefaultMediaConvertSettings
+class DefaultMediaConvertSettings implements Arrayable
 {
 
     public function __construct(public array $settings)
@@ -134,10 +136,19 @@ class DefaultMediaConvertSettings
         );
     }
 
-    public function with(array $outputGroup): static
+    public function addOutput(array $outputGroup): static
     {
         array_push($this->settings["OutputGroups"], $outputGroup);
         return $this;
+    }
+
+    public function addOutputWhen(mixed $condition, callable|array $outputGroup): static
+    {
+        if (!$condition) {
+            return $this;
+        }
+
+        return $this->addOutput(is_callable($outputGroup) ? $outputGroup() : $outputGroup);
     }
 
     public function toArray(): array
