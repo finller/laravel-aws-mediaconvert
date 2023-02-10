@@ -2,10 +2,7 @@
 
 namespace Finller\AwsMediaConvert\Support;
 
-/**
- * Default settings for creating a thumbnail of the video
- */
-class DefaultThumbnailMediaConvertOutput
+class DefaultThumbnailMediaConvertGroup extends MediaConvertGroup
 {
     public static function make(
         string $FramerateNumerator,
@@ -14,8 +11,8 @@ class DefaultThumbnailMediaConvertOutput
         string $Quality,
         string $Width,
         string $Destination
-    ): array {
-        return [
+    ): self {
+        return new self([
             'CustomName' => 'Thumbnails',
             'Name' => 'File Group',
             'Outputs' => [
@@ -51,6 +48,6 @@ class DefaultThumbnailMediaConvertOutput
                     'Destination' => $Destination,
                 ],
             ],
-        ];
+        ]);
     }
 }

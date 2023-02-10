@@ -2,17 +2,10 @@
 
 namespace Finller\AwsMediaConvert\Support\Hls;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Finller\AwsMediaConvert\Support\MediaConvertGroup;
 
-/**
- * Default settings for an Apple HLS web optimized Video
- */
-class DefaultHlsMediaConvertGroup implements Arrayable
+class DefaultHlsMediaConvertGroup extends MediaConvertGroup
 {
-    public function __construct(public array $settings)
-    {
-        //
-    }
 
     public static function make(string $Destination): self
     {
@@ -29,26 +22,5 @@ class DefaultHlsMediaConvertGroup implements Arrayable
                 ],
             ],
         ]);
-    }
-
-    public function addOutput(array $Output): static
-    {
-        array_push($this->settings['Outputs'], $Output);
-
-        return $this;
-    }
-
-    public function addOutputWhen(mixed $condition, callable|array $Output): static
-    {
-        if (!$condition) {
-            return $this;
-        }
-
-        return $this->addOutput(is_callable($Output) ? $Output() : $Output);
-    }
-
-    public function toArray(): array
-    {
-        return $this->settings;
     }
 }

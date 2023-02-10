@@ -2,9 +2,6 @@
 
 namespace Finller\AwsMediaConvert\Support\Hls;
 
-/**
- * Default settings for creating a thumbnail of the video
- */
 class DefaultHls720pMediaConvertOutput
 {
     public static function make(

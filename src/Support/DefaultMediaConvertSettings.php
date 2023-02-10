@@ -45,16 +45,19 @@ class DefaultMediaConvertSettings implements Arrayable
         );
     }
 
-    public function addOutputGroup(array $outputGroup): static
+    public function addOutputGroup(array|Arrayable $outputGroup): static
     {
-        array_push($this->settings['OutputGroups'], $outputGroup);
+        array_push(
+            $this->settings['OutputGroups'],
+            $outputGroup instanceof Arrayable ? $outputGroup->toArray() : $outputGroup
+        );
 
         return $this;
     }
 
-    public function addOutputGroupWhen(mixed $condition, callable|array $outputGroup): static
+    public function addOutputGroupWhen(mixed $condition, callable|array|Arrayable $outputGroup): static
     {
-        if (! $condition) {
+        if (!$condition) {
             return $this;
         }
 
