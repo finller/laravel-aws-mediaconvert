@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * Default settings for an Apple HLS web optimized Video
  */
-class DefaultHlsMediaConvertSettings implements Arrayable
+class DefaultHlsMediaConvertGroup implements Arrayable
 {
     public function __construct(public array $settings)
     {
