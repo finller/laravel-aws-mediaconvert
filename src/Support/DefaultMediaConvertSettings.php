@@ -9,7 +9,6 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class DefaultMediaConvertSettings implements Arrayable
 {
-
     public function __construct(public array $settings)
     {
     }
@@ -138,13 +137,14 @@ class DefaultMediaConvertSettings implements Arrayable
 
     public function addOutput(array $outputGroup): static
     {
-        array_push($this->settings["OutputGroups"], $outputGroup);
+        array_push($this->settings['OutputGroups'], $outputGroup);
+
         return $this;
     }
 
     public function addOutputWhen(mixed $condition, callable|array $outputGroup): static
     {
-        if (!$condition) {
+        if (! $condition) {
             return $this;
         }
 
