@@ -51,7 +51,7 @@ class AwsMediaConvert
         return $this->client->listJobs($options);
     }
 
-    public function getUri(string $path): string
+    public function getUri(?string $path = ""): string
     {
         return 's3://'.config('filesystems.disks.s3.bucket').Str::start($path, '/');
     }

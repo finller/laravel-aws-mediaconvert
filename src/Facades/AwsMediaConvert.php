@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Aws\Result createJob(array $settings, array $metaData = [], array $tags = [], int $priority = 0)
  * @method static \Aws\Result getJob(string $id)
  * @method static \Aws\Result listJobs(array $options)
+ * @method static string getUri(?string $path) retrieve AWS S3 uri
  *
  * @see \Finller\AwsMediaConvert\AwsMediaConvert
  */
