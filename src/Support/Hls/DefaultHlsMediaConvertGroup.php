@@ -6,7 +6,6 @@ use Finller\AwsMediaConvert\Support\MediaConvertGroup;
 
 class DefaultHlsMediaConvertGroup extends MediaConvertGroup
 {
-
     public static function make(string $Destination): self
     {
         return new self([
