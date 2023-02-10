@@ -69,8 +69,8 @@ class DefaultOptimizedVideoMediaConvertGroup extends MediaConvertGroup
                             'RespondToAfd' => 'NONE',
                             'ColorMetadata' => 'INSERT',
                         ],
-                        $Height ? ["Height" => $Height] : [],
-                        $Width ? ["Width" => $Width] : [],
+                        $Height ? ['Height' => $Height] : [],
+                        $Width ? ['Width' => $Width] : [],
                     ),
                     'AudioDescriptions' => [
                         [
