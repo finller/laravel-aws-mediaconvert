@@ -5,7 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/finller/laravel-aws-mediaconvert/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/finller/laravel-aws-mediaconvert/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/finller/laravel-aws-mediaconvert.svg?style=flat-square)](https://packagist.org/packages/finller/laravel-aws-mediaconvert)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Theis package provid an easy way to interact with AWS MediaConvert. It provids usefull presets for **HLS**, **MP4** optimization and **thumbnail**.
+
+The package is greatly inspired by the work of meemalabs and their similar package https://github.com/meemalabs/laravel-media-converter !
 
 ## Installation
 
@@ -83,7 +85,74 @@ So you can simply create a MediaConvert job by calling `createJob` like that.
 Finller\AwsMediaConvert\Facades\AwsMediaConvert::createJob(settings: []);
 ```
 
-But we also provid usefull `HLS` and `MP4` optimized for the web presets
+But we also provid usefull `HLS` and `MP4` presets that are optimized for the web.
+Here is a more advanced usage:
+
+Convert any video to an optimized MP4:
+
+```php
+$input = AwsMediaConvert::getUri($path); // you can use getUri to build the S3 uri easily
+
+AwsMediaConvert::createJob(
+    settings: DefaultMediaConvertSettings::make($input)
+        ->addOutputGroup(
+            DefaultOptimizedVideoMediaConvertGroup::make(
+                Destination: $destination,
+                Height: min(1080, $originalHeight) // optional but you can set a Height or Width to resize the video
+            )
+        )
+        ->toArray(),
+    metaData: [ // feel free to add metadata so you can do the right action when receiving the webhook
+        'env' => config('app.env'),
+        get_class($this->media) => $this->media->id,
+        'job' => get_class($this),
+    ]
+);
+```
+
+Convert any video to an optimized Apple HLS set of files:
+
+```php
+$input = AwsMediaConvert::getUri($path); // you can use getUri to build the S3 uri easily
+
+AwsMediaConvert::createJob(
+    settings: DefaultMediaConvertSettings::make($input)
+        ->addOutputGroup(
+            DefaultHlsMediaConvertGroup::make($destination)
+                ->addOutputWhen($maxHeight >= 1080, DefaultHls1080pMediaConvertOutput::make())
+                ->addOutputWhen($maxHeight >= 720, DefaultHls720pMediaConvertOutput::make())
+                ->addOutputWhen($maxHeight >= 540, DefaultHls540pMediaConvertOutput::make())
+                ->addOutputWhen($maxHeight >= 540, DefaultHls480pMediaConvertOutput::make())
+        )
+        ->toArray(),
+    metaData: []
+);
+```
+
+Perform multiple Conversion in 1 job:
+
+```php
+$input = AwsMediaConvert::getUri($path); // you can use getUri to build the S3 uri easily
+
+AwsMediaConvert::createJob(
+    settings: DefaultMediaConvertSettings::make($input)
+    ->addOutputGroup(
+            DefaultOptimizedVideoMediaConvertGroup::make(
+                Destination: $destination,
+                Height: min(1080, $originalHeight) // optional but you can set a Height or Width to resize the video
+            )
+        )
+        ->addOutputGroup(
+            DefaultHlsMediaConvertGroup::make($destination)
+                ->addOutputWhen($originalHeight >= 1080, DefaultHls1080pMediaConvertOutput::make())
+                ->addOutputWhen($originalHeight >= 720, DefaultHls720pMediaConvertOutput::make())
+                ->addOutputWhen($originalHeight >= 540, DefaultHls540pMediaConvertOutput::make())
+                ->addOutputWhen($originalHeight >= 540, DefaultHls480pMediaConvertOutput::make())
+        )
+        ->toArray(),
+    metaData: []
+);
+```
 
 ### Tracks MediaConvert jobs with webhooks
 
@@ -91,8 +160,8 @@ But we also provid usefull `HLS` and `MP4` optimized for the web presets
 
 #### 2. Connect your rule to an AWS SNS notification
 
-
 #### 2. Register the webhook route
+
 In web, api or any route file of yours, register the prebuilt route with the following macro.
 Use the url you have chosen in AWS SNS
 
