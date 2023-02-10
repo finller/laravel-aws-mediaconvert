@@ -5,7 +5,7 @@ namespace Finller\AwsMediaConvert\Support;
 /**
  * Default settings for creating a thumbnail of the video
  */
-class ThumbnailMediaConvertOutput
+class DefaultThumbnailMediaConvertOutput
 {
     public static function make(
         string $FramerateNumerator,
