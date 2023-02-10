@@ -21,8 +21,8 @@ class DefaultOptimizedVideoMediaConvertGroup extends MediaConvertGroup
                     ],
                     'VideoDescription' => [
                         'ScalingBehavior' => 'DEFAULT',
-                        "Height" => $Height,
-                        "Width" => $Width,
+                        'Height' => $Height,
+                        'Width' => $Width,
                         'TimecodeInsertion' => 'DISABLED',
                         'AntiAlias' => 'ENABLED',
                         'Sharpness' => 50,
