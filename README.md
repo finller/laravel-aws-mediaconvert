@@ -156,18 +156,70 @@ AwsMediaConvert::createJob(
 
 ### Tracks MediaConvert jobs with webhooks
 
-#### 1. Create an AWS CloudWatch rule
+### 1. Register the webhook route in your app.
 
-#### 2. Connect your rule to an AWS SNS notification
+You can simply use our prebuilt Webhook controller
 
-#### 2. Register the webhook route
-
-In web, api or any route file of yours, register the prebuilt route with the following macro.
-Use the url you have chosen in AWS SNS
+In your `web`, `api` or any route file of yours, register the prebuilt route with the following macro.
+You can use any url
 
 ```php
 Route::awsMediaConvertWebhook('aws/webhooks/media-convert');
 ```
+
+If you have put your route in a place where the `VerifyCsrfToken` is attached, you will have to add an exception just like that:
+```php
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'aws/*', // Put the route you have chosen here
+    ];
+}
+```
+
+### 2. Create an SNS Topic
+Go to https://console.aws.amazon.com/sns/v3/home (don't forget to select the right region for you).
+
+On the right navigation bar, select "Topics" and click the "Create topic" button on your right.
+For the Type, choose "Standard" and give a name to your Topic juste like "MediaConvertJobUpdate" and click "Create topic"
+
+Now, click "Create subscription" and select HTTPS for the "Protocol". Then enter the webhook route you have chosen like `https://app.example/aws/webhooks/media-convert` and confirm creation.
+
+By default, AWS will have sent a post request to URL you defined in your "Subscription" setup. This package automatically handles the "confirmation" part. In case there is an issue and it is not confirmed yet, please click on the "Request confirmation" button.
+
+
+#### 3. Create an AWS CloudWatch rule
+1. Go to https://console.aws.amazon.com/cloudwatch/home (don't forget to select the right region for you).
+2. Open Events > Rule from the left navigation bar.
+3. Click Create Rule.
+In the Event Source panel select the "Event pattern" radio and "Events by Services" (it should be the default value)
+In "Service Name", choose "MediaConvert" et keep  "All Events" for Event Type.
+
+Your Event pattern preview should be
+```json
+{
+  "source": [
+    "aws.mediaconvert"
+  ]
+}
+```
+
+If you need to listen to only a specific queue for example, you can do it like that:
+```json
+{
+  "source": ["aws.mediaconvert"],
+  "detail": {
+    "queue": ["arn:aws:mediaconvert:us-east-1:123456789:queues/Default"]
+  }
+}
+```
+
+In the Target panel (on the right), click "Add Target" and select "SNS Topic". Then select the previously created SNS Topic.
 
 That's all, this package will dispatch Laravel events for you to listen.
 But if you need more specific behavior, you can create your own controller by extending `AwsMediaConvertWebhookController` for example.
