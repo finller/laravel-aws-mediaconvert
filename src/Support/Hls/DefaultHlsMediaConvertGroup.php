@@ -14,9 +14,9 @@ class DefaultHlsMediaConvertGroup implements Arrayable
         //
     }
 
-    public static function make(string $FileInput, string $Destination): DefaultHlsMediaConvertSettings
+    public static function make(string $FileInput, string $Destination): self
     {
-        return new DefaultHlsMediaConvertSettings([
+        return new self([
             'CustomName' => 'Standard HLS',
             'Name' => 'Apple HLS',
             'Outputs' => [],
@@ -40,7 +40,7 @@ class DefaultHlsMediaConvertGroup implements Arrayable
 
     public function addOutputGroupWhen(mixed $condition, callable|array $Output): static
     {
-        if (! $condition) {
+        if (!$condition) {
             return $this;
         }
 
