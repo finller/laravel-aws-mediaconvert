@@ -4,7 +4,7 @@ namespace Finller\AwsMediaConvert\Support;
 
 class DefaultOptimizedVideoMediaConvertGroup extends MediaConvertGroup
 {
-    public static function make(string $Destination): self
+    public static function make(string $Destination, ?int $Height = null, ?int $Width = null): self
     {
         return new self([
             'CustomName' => 'MP4 Optimized',
@@ -21,6 +21,8 @@ class DefaultOptimizedVideoMediaConvertGroup extends MediaConvertGroup
                     ],
                     'VideoDescription' => [
                         'ScalingBehavior' => 'DEFAULT',
+                        "Height" => $Height,
+                        "Width" => $Width,
                         'TimecodeInsertion' => 'DISABLED',
                         'AntiAlias' => 'ENABLED',
                         'Sharpness' => 50,
