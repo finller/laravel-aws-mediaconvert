@@ -57,7 +57,7 @@ class DefaultMediaConvertSettings implements Arrayable
 
     public function addOutputGroupWhen(mixed $condition, callable|array|Arrayable $outputGroup): static
     {
-        if (!$condition) {
+        if (! $condition) {
             return $this;
         }
 

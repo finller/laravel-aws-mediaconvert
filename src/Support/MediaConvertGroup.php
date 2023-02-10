@@ -23,7 +23,7 @@ class MediaConvertGroup implements Arrayable
 
     public function addOutputWhen(mixed $condition, callable|array|Arrayable $Output): static
     {
-        if (!$condition) {
+        if (! $condition) {
             return $this;
         }
 
