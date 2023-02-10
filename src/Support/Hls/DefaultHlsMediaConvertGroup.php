@@ -40,7 +40,7 @@ class DefaultHlsMediaConvertGroup implements Arrayable
 
     public function addOutputWhen(mixed $condition, callable|array $Output): static
     {
-        if (!$condition) {
+        if (! $condition) {
             return $this;
         }
 
