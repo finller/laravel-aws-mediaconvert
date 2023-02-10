@@ -7,7 +7,6 @@ namespace Finller\AwsMediaConvert\Support;
  */
 class ThumbnailMediaConvertOutput
 {
-
     public static function make(
         string $FramerateNumerator,
         string $FramerateDenominator,
@@ -32,17 +31,17 @@ class ThumbnailMediaConvertOutput
                         'CodecSettings' => [
                             'Codec' => 'FRAME_CAPTURE',
                             'FrameCaptureSettings' => [
-                                'FramerateNumerator' => $FramerateNumerator, 
-                                'FramerateDenominator' => $FramerateDenominator, 
-                                'MaxCaptures' => $MaxCaptures, 
-                                'Quality' => $Quality, 
+                                'FramerateNumerator' => $FramerateNumerator,
+                                'FramerateDenominator' => $FramerateDenominator,
+                                'MaxCaptures' => $MaxCaptures,
+                                'Quality' => $Quality,
                             ],
                         ],
                         'AfdSignaling' => 'NONE',
                         'DropFrameTimecode' => 'ENABLED',
                         'RespondToAfd' => 'NONE',
                         'ColorMetadata' => 'INSERT',
-                        'Width' => $Width, 
+                        'Width' => $Width,
                     ],
                 ],
             ],
