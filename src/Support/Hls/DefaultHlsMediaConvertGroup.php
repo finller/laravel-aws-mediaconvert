@@ -14,7 +14,7 @@ class DefaultHlsMediaConvertGroup implements Arrayable
         //
     }
 
-    public static function make(string $FileInput, string $Destination): self
+    public static function make(string $Destination): self
     {
         return new self([
             'CustomName' => 'Standard HLS',

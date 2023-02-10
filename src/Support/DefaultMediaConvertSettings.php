@@ -14,7 +14,7 @@ class DefaultMediaConvertSettings implements Arrayable
         //
     }
 
-    public static function make(string $FileInput, string $Destination): self
+    public static function make(string $FileInput): self
     {
         return new self(
             [
