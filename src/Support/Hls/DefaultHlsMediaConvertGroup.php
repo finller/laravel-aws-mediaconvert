@@ -2,7 +2,6 @@
 
 namespace Finller\AwsMediaConvert\Support\Hls;
 
-use Finller\AwsMediaConvert\Support\DefaultMediaConvertSettings;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -10,10 +9,9 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class DefaultHlsMediaConvertSettings implements Arrayable
 {
-
     public function __construct(public array $settings)
     {
-        // 
+        //
     }
 
     public static function make(string $FileInput, string $Destination): DefaultHlsMediaConvertSettings
@@ -42,7 +40,7 @@ class DefaultHlsMediaConvertSettings implements Arrayable
 
     public function addOutputGroupWhen(mixed $condition, callable|array $Output): static
     {
-        if (!$condition) {
+        if (! $condition) {
             return $this;
         }
 

@@ -11,7 +11,7 @@ class DefaultMediaConvertSettings implements Arrayable
 {
     public function __construct(public array $settings)
     {
-        // 
+        //
     }
 
     public static function make(string $FileInput, string $Destination): DefaultMediaConvertSettings
@@ -54,7 +54,7 @@ class DefaultMediaConvertSettings implements Arrayable
 
     public function addOutputGroupWhen(mixed $condition, callable|array $outputGroup): static
     {
-        if (!$condition) {
+        if (! $condition) {
             return $this;
         }
 
