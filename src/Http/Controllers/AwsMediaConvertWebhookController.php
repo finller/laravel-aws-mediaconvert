@@ -14,7 +14,6 @@ use Finller\AwsMediaConvert\Events\ConversionQueueHop;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class AwsMediaConvertWebhookController extends Controller
 {
@@ -55,8 +54,6 @@ class AwsMediaConvertWebhookController extends Controller
         }
 
         $this->dispatchEvent(Arr::get($notification, 'detail.status'), $notification);
-
-        Log::info('MediaConvert webhook', $message->toArray());
 
         return response()->json(['message' => 'ok']);
     }
