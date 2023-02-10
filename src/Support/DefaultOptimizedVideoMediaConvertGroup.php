@@ -93,13 +93,6 @@ class DefaultOptimizedVideoMediaConvertGroup extends MediaConvertGroup
                 'Type' => 'FILE_GROUP_SETTINGS',
                 'FileGroupSettings' => [
                     'Destination' => $Destination,
-                    'DestinationSettings' => [
-                        'S3Settings' => [
-                            'AccessControl' => [
-                                'CannedAcl' => 'PUBLIC_READ',
-                            ],
-                        ],
-                    ],
                 ],
             ],
         ]);
