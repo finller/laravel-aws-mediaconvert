@@ -76,9 +76,14 @@ return [
 
 ## Usage
 
+In the most basic way, this package provid a service which is a wrap around aws sdk.
+So you can simply create a MediaConvert job by calling `createJob` like that.
+
 ```php
 Finller\AwsMediaConvert\Facades\AwsMediaConvert::createJob(settings: []);
 ```
+
+But we also provid usefull `HLS` and `MP4` optimized for the web presets
 
 ### Tracks MediaConvert jobs with webhooks
 
