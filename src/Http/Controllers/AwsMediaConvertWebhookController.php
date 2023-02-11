@@ -27,7 +27,7 @@ class AwsMediaConvertWebhookController extends Controller
 
             $validator = new MessageValidator();
 
-            if (!$validator->isValid($message)) {
+            if (! $validator->isValid($message)) {
                 abort(403);
             }
 
@@ -43,7 +43,7 @@ class AwsMediaConvertWebhookController extends Controller
             return response()->json(['message' => 'ok']);
         }
 
-        if (!isset($message['Message'])) {
+        if (! isset($message['Message'])) {
             return response()->json(['message' => 'ok']);
         }
 
@@ -51,7 +51,7 @@ class AwsMediaConvertWebhookController extends Controller
 
         if (
             Arr::get($notification, 'source') !== 'aws.mediaconvert' ||
-            !isset($notification['detail'])
+            ! isset($notification['detail'])
         ) {
             return response()->json(['message' => 'ok']);
         }
@@ -94,8 +94,10 @@ class AwsMediaConvertWebhookController extends Controller
     {
         if (isset($message['SubscribeURL'])) {
             Http::get($message['SubscribeURL']);
+
             return true;
         }
+
         return false;
     }
 }
