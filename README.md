@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/finller/laravel-aws-mediaconvert/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/finller/laravel-aws-mediaconvert/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/finller/laravel-aws-mediaconvert.svg?style=flat-square)](https://packagist.org/packages/finller/laravel-aws-mediaconvert)
 
-Theis package provid an easy way to interact with AWS MediaConvert. It provids usefull presets for **HLS**, **MP4** optimization and **thumbnail**.
+This package provides an easy way to interact with AWS MediaConvert. It provides usefull presets for **HLS**, **MP4** optimization and **thumbnail**.
 
 The package is greatly inspired by the work of meemalabs and their similar package https://github.com/meemalabs/laravel-media-converter !
 
@@ -78,7 +78,7 @@ return [
 
 ## Usage
 
-In the most basic way, this package provid a service which is a wrap around aws sdk.
+In the most basic way, this package provides a service which is a wrap around the aws sdk.
 So you can simply create a MediaConvert job by calling `createJob` like that.
 
 ```php
@@ -91,7 +91,7 @@ Here is a more advanced usage:
 Convert any video to an optimized MP4:
 
 ```php
-$input = AwsMediaConvert::getUri($path); // you can use getUri to build the S3 uri easily
+$input = AwsMediaConvert::getUri($path); // you can use getUri to build the S3 uri quickly
 
 AwsMediaConvert::createJob(
     settings: DefaultMediaConvertSettings::make($input)
