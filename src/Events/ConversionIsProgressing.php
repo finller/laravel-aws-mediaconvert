@@ -12,8 +12,6 @@ class ConversionIsProgressing
 
     /**
      * Create a new event instance.
-     *
-     * @param $message
      */
     public function __construct(public $message)
     {
