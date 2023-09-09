@@ -11,6 +11,7 @@ use Finller\AwsMediaConvert\Events\ConversionHasNewWarning;
 use Finller\AwsMediaConvert\Events\ConversionHasStatusUpdate;
 use Finller\AwsMediaConvert\Events\ConversionIsProgressing;
 use Finller\AwsMediaConvert\Events\ConversionQueueHop;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
@@ -22,12 +23,12 @@ class AwsMediaConvertWebhookController extends Controller
         /**
          * Verify SNS message signature
          */
-        $this->middleware(function ($request, $next) {
-            $message = Message::fromRawPostData();
+        $this->middleware(function (Request $request, $next) {
+            $message = Message::fromJsonString($request->getContent());
 
             $validator = new MessageValidator();
 
-            if (! $validator->isValid($message)) {
+            if (!$validator->isValid($message)) {
                 abort(403);
             }
 
@@ -35,15 +36,15 @@ class AwsMediaConvertWebhookController extends Controller
         });
     }
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $message = Message::fromRawPostData();
+        $message = Message::fromJsonString($request->getContent());
 
         if ($isConfirmation = $this->ensureSubscriptionIsConfirmed($message)) {
             return response()->json(['message' => 'ok']);
         }
 
-        if (! isset($message['Message'])) {
+        if (!isset($message['Message'])) {
             return response()->json(['message' => 'ok']);
         }
 
@@ -51,7 +52,7 @@ class AwsMediaConvertWebhookController extends Controller
 
         if (
             Arr::get($notification, 'source') !== 'aws.mediaconvert' ||
-            ! isset($notification['detail'])
+            !isset($notification['detail'])
         ) {
             return response()->json(['message' => 'ok']);
         }
